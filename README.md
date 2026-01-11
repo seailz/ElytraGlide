@@ -1,0 +1,2 @@
+# ElytraGlide
+Proof of concept experimenting with communicating with resource pack shaders from a server-side plugin by using the `GameTime` property that can be accessed in shaders and controlled by packets.

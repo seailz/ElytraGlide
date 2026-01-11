@@ -1,0 +1,6 @@
+name: ElytraGlide
+version: '1.0-SNAPSHOT'
+main: com.seailz.elytraGlide.ElytraGlide
+author: seailz
+depend: [ ProtocolLib ]
+api-version: '1.21'
