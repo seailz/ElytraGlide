@@ -58,7 +58,10 @@ public final class ElytraGlide extends JavaPlugin {
                                         float degrees = ctx.getArgument("degrees", Float.class);
 
                                         long offsetTicks = Math.round((degrees / 90.0f) * MAX_SIGNAL_TICKS);
+                                        long quant = 100; // Quantize to fix the effect where the game keeps counting up and then snaps back on a packet
                                         long fakeGame = BASE_TICKS + offsetTicks;
+
+                                        fakeGame = (fakeGame / quant) * quant;
 
                                         Player player = (Player) ctx.getSource().getSender();
                                         desiredGameTime.put(player.getUniqueId(), fakeGame);
