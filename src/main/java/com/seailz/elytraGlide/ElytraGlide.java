@@ -48,8 +48,7 @@ public final class ElytraGlide extends JavaPlugin {
 
                 // Only overwrite the gameTime field (index 0).
                 event.getPacket().getLongs().write(0, fakeGameTime);
-
-                 event.getPacket().getBooleans().write(0, false);
+                event.getPacket().getLongs().write(1, 0L);
 
                  // send our own packet again to double the amount of packets sent
                 Bukkit.getScheduler().runTaskLater(instance, () -> {
