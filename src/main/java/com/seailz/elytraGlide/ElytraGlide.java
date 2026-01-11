@@ -9,6 +9,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,7 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class ElytraGlide extends JavaPlugin {
 
-    private static final long BASE_TICKS = 6000;
+    private static ElytraGlide instance;
+
+    private static final long BASE_TICKS = 12000;
     private static final int MAX_SIGNAL_TICKS = 400;
 
     private ProtocolManager protocolManager;
@@ -28,6 +31,7 @@ public final class ElytraGlide extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         protocolManager = ProtocolLibrary.getProtocolManager();
 
         // Intercept ALL outgoing UPDATE_TIME packets and overwrite gameTime for controlled players
@@ -46,6 +50,15 @@ public final class ElytraGlide extends JavaPlugin {
                 event.getPacket().getLongs().write(0, fakeGameTime);
 
                  event.getPacket().getBooleans().write(0, false);
+
+                 // send our own packet again to double the amount of packets sent
+                Bukkit.getScheduler().runTaskLater(instance, () -> {
+                    try {
+                        protocolManager.sendServerPacket(p, event.getPacket());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, 5L);
             }
         });
 
