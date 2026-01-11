@@ -1,7 +1,8 @@
 # Flaps
 Flaps is a proof of concept experimenting with communicating with resource pack shaders from a server-side plugin by using the `GameTime` property that can be accessed in shaders and controlled by packets.
-<br><BR>Flaps demonstrates an ability to control shader effects on clients from the server side, opening up possibilities for dynamic visual effects in Minecraft without mods, notably recreating the [roll effect when turning](https://www.youtube.com/watch?v=4TVhD3RRQrc) using an Elytra on the Legacy console editions. However, now
-with essentially unlimited access to the shader code, the possibilities are much broader than just this specific effect.
+<br><BR>Flaps demonstrates an ability to control shader effects on clients from the server side, opening up possibilities for dynamic visual effects in Minecraft without mods, notably recreating the [roll effect when turning](https://www.youtube.com/watch?v=4TVhD3RRQrc) using an Elytra on the Legacy console editions. However, now with essentially unlimited access to the shader code, the possibilities are much broader than just this specific effect.
+
+https://github.com/user-attachments/assets/a44e6dd3-57b6-4b8c-827c-51507e512070
 
 Potential use cases include:
 - Dynamic visual weather effects (e.g., heat distortion during a heatwave)
@@ -27,7 +28,7 @@ to create your own effects based on the `gameTimeOffset` variable.
 ## Known issues
 The complexity of modifying core shaders and the fact that it's unsupported means you **will** encounter visual bugs. Some known issues include:
 - Celestial bodies are not controlled by the shader
-- Some flickering may occur at certain times of day
+- The day/night cycle is currently disabled
 - Riding a boat can look weird
 - Holding an item in F5 view can look weird
 - The player's hand is considered an entity and will have effects applied to it
