@@ -14,8 +14,8 @@ Potential use cases include:
 >As this project relies on modifying [core shaders](https://minecraft.wiki/w/Shader#Core-shaders), it is highly experimental and not officially supported by Mojang.
 
 ## Overview
-The plugin works by sending packets to clients to modify the `GameTime` property, which is then read by custom shaders in a resource pack. The current iteration sets an agreed upon time value (12000 ticks), which is then offset by a value to control the angle of the glide effect, which can be detected by the shader. The value is 
-quantized as the client keeps progressing GameTime unless reset by the server and not doing so would cause drift for a few seconds.
+The plugin works by sending packets to clients to modify the `GameTime` property, which is then read by custom shaders in a resource pack. The current iteration sets an agreed upon time value (12000 ticks), which is 
+then quantized as the client keeps progressing GameTime unless reset by the server and not doing so would cause drift for a few seconds. We are then left with 1200, or, in other words, 4 integers that can be cmmunicated to the shader from the server. Unfortunately this is the current limiation and no more data can be embedded. It *may* be possible to extend this to 5 digits by removing quantization and instead sending packets every tick, at an increased bandwidth and risk of losing sync with the server. 
 
 Flaps is currently configured and the resource pack is currently only designed for Java Edition 1.21.8. As core shaders are subject to change, it may not work on other versions without modification.
 
