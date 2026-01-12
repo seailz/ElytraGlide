@@ -100,8 +100,6 @@ vec4 eg_example_shake(vec4 clip, float gameTime01) {
 /* ============================================================================
    5) USER HOOK: ADD YOUR OWN EFFECT HERE
    ----------------------------------------------------------------------------
-   If you want to ship the library with a “blank” hook, keep eg_user_effect as the
-   extension point and swap what eg_apply_vertex_effects calls.
 
    Tip:
      - Prefer using eg_bus_value(gameTime01) for continuous controls [-1..+1]
