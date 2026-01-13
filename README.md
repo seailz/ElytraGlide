@@ -35,8 +35,22 @@ Flaps is currently configured and the resource pack is currently only designed f
 ### Resource Pack
 The resource pack overrides the core shaders (located in `assets/minecraft/shaders/core/`) to apply effects from a shared file (`assets/elytraglide/shaders/include/eg_effects_vertex.glsl`) based on the modified `GameTime` value from the server.
 
-The effect can be customized in the `eg_effects_vertex.glsl` file. The current implementation applies a roll effect based on the offset limited at +/- 20 degrees. You should modify this file's logic
-to create your own effects based on the `gameTimeOffset` variable.
+## How to use
+
+There are two types of shaders: vertex shaders (`.vsh`) and fragment shaders (`.fsh`). Vertex shaders handle the geometry of objects (so are good for camera effects etc), while fragment shaders handle the coloring and texturing of pixels (useful for color grading, distortion effects, etc).
+
+1. **Install the texture pack**: This can be found in the `resourcepack` folder of this repository. Either add it to your .minecraft or set it as your server's resource pack.
+2. **Install the plugin**: Add the Flaps plugin jar file to your server's plugins folder.
+3. **Modify the shader effects**:
+    - Open the resource pack and navigate to `assets/elytraglide/shaders/include/eg_effects_vertex.glsl` if you're modifying vertex shaders
+        - The function at the bottom of the file, `eg_apply_vertex_effects`, can be modified to create your own effects and apply them to the core shaders. There are a few presets which you can use as a starting point, or create your own logic.
+    - If you want to modify fragment shaders instead, navigate to `assets/elytraglide/shaders/include/eg_effects_fragment.glsl` and modify the `eg_apply_fragment_effects` function.
+    - The server modifies the `gameTime` variable found in both files, so you can use this variable to dynamically change/enable/disable effects from the server based on its value. In future versions of Flaps this'll be made easier by including an automatic encoding and decoding system.
+    - Refer to the [Minecraft shader documentation](https://minecraft.wiki/w/Shader) for more information on shader programming. There is limited information available so you may need to experiment.
+    - You can also modify the core shaders directly if you want to make substantial changes, but most effects should be possible through the include files.
+4. **Modify the plugin**: Again, since there's no API or encoding system available yet, you will need to modify and compile the plugin yourself to change how the `GameTime` variable is set. An API will be added in future versions to make this easier.
+    - If you'd prefer to do this yourself in your own plugin, use ProtocolLib (or NMS) to send a [`ClientboundUpdateTimePacket`](https://minecraft.wiki/w/Java_Edition_protocol/Packets#Update_Time) to clients every tick (or as often as needed) setting the first and second longs to your desired `GameTime` value, and the first boolean to `false`.
+5. **Test your changes**: Start your server and join with a client that has the resource pack installed. Test the shader effects and make adjustments as needed.
 
 ## Known issues
 The complexity of modifying core shaders and the fact that it's unsupported means you **will** encounter visual bugs. Some known issues include:
