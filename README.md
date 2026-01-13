@@ -3,8 +3,19 @@ Flaps is a proof of concept experimenting with communicating with resource pack 
 <br><BR>Flaps demonstrates an ability to control shader effects on clients from the server side, opening up possibilities for dynamic visual effects in Minecraft without mods, notably recreating the [roll effect when turning](https://www.youtube.com/watch?v=4TVhD3RRQrc) using an Elytra on the Legacy console editions. However, now with essentially unlimited access to the shader code, the possibilities are much broader than just this specific effect.
 
 https://github.com/user-attachments/assets/a44e6dd3-57b6-4b8c-827c-51507e512070
-https://github.com/user-attachments/assets/20db4f42-5c2e-4a5d-a1cd-6e
-https://github.com/user-attachments/assets/95d3be03-e64a-4522-971e-8724016d8088
+
+
+
+
+https://github.com/user-attachments/assets/e8788e23-1c4f-442f-8dcf-b84a13499390
+
+
+
+
+
+https://github.com/user-attachments/assets/5a02b76d-5fa1-49e9-8a17-aa0664a038f1
+
+
 
 Potential use cases include:
 - Dynamic visual weather effects (e.g., heat distortion during a heatwave)
