@@ -19,10 +19,8 @@ void main() {
 
 vec2 screenUV = gl_FragCoord.xy / ScreenSize;
 
-    // Sky pass: force "far" distance so haze/whiteout/shimmer is strong.
     float viewDist = 200.0;
 
-    // Treat this like a sky tint (similar to sky.fsh)
     vec4 outColor = eg_apply_fragment_effects(color * ColorModulator, GameTime, screenUV, viewDist);
 
     fragColor = outColor;

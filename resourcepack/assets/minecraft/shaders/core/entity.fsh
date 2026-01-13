@@ -41,11 +41,9 @@ void main() {
     color *= lightMapColor;
 #endif
 
-    // Apply global effect (snow/whiteout or heat shimmer etc.) using real distance
     vec2 screenUV = gl_FragCoord.xy / ScreenSize;
     color = eg_apply_fragment_effects(color, GameTime, screenUV, sphericalVertexDistance);
 
-    // Keep vanilla fog last
     fragColor = apply_fog(
         color,
         sphericalVertexDistance,
