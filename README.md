@@ -54,7 +54,7 @@ There are two types of shaders: vertex shaders (`.vsh`) and fragment shaders (`.
 
 ## Known issues
 The complexity of modifying core shaders and the fact that it's unsupported means you **will** encounter visual bugs. Some known issues include:
-- Celestial bodies are not controlled by the shader
+- Celestial bodies are not controlled by the shader (and can appear to duplicate in some cases)
 - The day/night cycle is currently disabled
 - Riding a boat can look weird
 - Holding an item in F5 view can look weird
