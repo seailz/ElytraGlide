@@ -98,20 +98,57 @@ vec4 eg_example_shake(vec4 clip, float gameTime01) {
 }
 
 /* ============================================================================
-   5) USER HOOK: ADD YOUR OWN EFFECT HERE
+   5) EXAMPLE EFFECT C: DESERT
    ----------------------------------------------------------------------------
-   If you want to ship the library with a “blank” hook, keep eg_user_effect as the
-   extension point and swap what eg_apply_vertex_effects calls.
+   - Supplements the desert FSH effect by adding a wobble replicating warm air
+   ============================================================================ */
 
-   Tip:
-     - Prefer using eg_bus_value(gameTime01) for continuous controls [-1..+1]
-     - Prefer eg_is_max_signal(gameTime01) for discrete triggers
+float eg_hash11(float p) {
+    p = fract(p * 0.1031);
+    p *= p + 33.33;
+    p *= p + p;
+    return fract(p);
+}
+
+// Small, cheap 1D-ish wave field
+float eg_wave(float x) {
+    return sin(x) * 0.6 + sin(x * 1.7) * 0.3 + sin(x * 2.9) * 0.1;
+}
+
+vec4 eg_apply_heat_vertex_wobble(vec4 clipPos, float gameTime) {
+    // 0..1 per day -> speed it up a bit, then slow overall with multiplier
+    float t = gameTime * 2000.0;
+
+    // Convert clip coords to NDC-ish for stable screen-space wobble
+    vec2 ndc = clipPos.xy / max(clipPos.w, 1e-5);
+
+    // Strength ramps with distance from camera (approx using depth in clip space)
+    // This is not perfect distance, but good enough to keep near geometry calm.
+    float depth01 = clamp((clipPos.z / max(clipPos.w, 1e-5)) * 0.5 + 0.5, 0.0, 1.0);
+    float strength = smoothstep(0.35, 1.0, depth01) * 0.0020; // keep tiny (0.0015..0.003)
+
+    // Wavy field: mostly horizontal, a little vertical
+    float w = eg_wave(ndc.y * 18.0 + t) + eg_wave(ndc.y * 7.0 - t * 1.3);
+    float wx = w * strength;
+
+    // Slight vertical component too, but smaller
+    float wy = eg_wave(ndc.x * 10.0 + t * 0.7) * (strength * 0.35);
+
+    // Apply in clip space
+    clipPos.xy += vec2(wx, wy) * clipPos.w;
+
+    return clipPos;
+}
+
+/* ============================================================================
+   6) USER HOOK: ADD YOUR OWN EFFECT HERE
    ============================================================================ */
 
 vec4 eg_user_effect(vec4 clip, float gameTime01) {
     // Default: no-op. Replace with your own logic.
     return clip;
 }
+
 
 /* ============================================================================
    6) MAIN ENTRYPOINT
@@ -120,13 +157,18 @@ vec4 eg_user_effect(vec4 clip, float gameTime01) {
      - eg_example_roll(clip, gameTime01)
      - eg_example_shake(clip, gameTime01)
      - eg_user_effect(clip, gameTime01)
+     - eg_apply_heat_vertex_wobble(clip, gameTime01)
+
+   Currently set to NONE. (return clip;)
    ============================================================================ */
 
 vec4 eg_apply_vertex_effects(vec4 clip, float gameTime01) {
     // --- pick your effect implementation ---
     // return eg_example_roll(clip, gameTime01);
-    return eg_example_shake(clip, gameTime01);
+    // return eg_example_shake(clip, gameTime01);
     // return eg_user_effect(clip, gameTime01);
+    // return eg_apply_heat_vertex_wobble(clip, gameTime01);
+    return clip;
 }
 
 #endif

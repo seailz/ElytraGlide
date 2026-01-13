@@ -1,6 +1,0 @@
-{ 
-  "pack": {
-    "pack_format": 64,
-    "description": "Flaps POC to demonstrate server-side shader communication"
-  }
-}
