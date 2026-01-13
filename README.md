@@ -3,6 +3,8 @@ Flaps is a proof of concept experimenting with communicating with resource pack 
 <br><BR>Flaps demonstrates an ability to control shader effects on clients from the server side, opening up possibilities for dynamic visual effects in Minecraft without mods, notably recreating the [roll effect when turning](https://www.youtube.com/watch?v=4TVhD3RRQrc) using an Elytra on the Legacy console editions. However, now with essentially unlimited access to the shader code, the possibilities are much broader than just this specific effect.
 
 https://github.com/user-attachments/assets/a44e6dd3-57b6-4b8c-827c-51507e512070
+https://github.com/user-attachments/assets/20db4f42-5c2e-4a5d-a1cd-6e
+https://github.com/user-attachments/assets/95d3be03-e64a-4522-971e-8724016d8088
 
 Potential use cases include:
 - Dynamic visual weather effects (e.g., heat distortion during a heatwave)
@@ -31,6 +33,9 @@ The complexity of modifying core shaders and the fact that it's unsupported mean
 - The day/night cycle is currently disabled
 - Riding a boat can look weird
 - Holding an item in F5 view can look weird
+- Shaders cannot change the lower half of the sky. There is no solution to this. (notice how the snow particles are not visible within the blue area.)
+  - <img width="3440" height="1417" alt="2026-01-13_14 19 47" src="https://github.com/user-attachments/assets/8c4b8b8c-f032-4b21-b097-aea95460d423" />
+
 - The player's hand is considered an entity and will have effects applied to it
   - The only way of detecting the hand is to check the proximity to the camera, which can lead to false positives with real mobs/entities and cause strange effects
   - For most servers, particularly for temporary effects, it's recommended to allow the hand to be affected by the shader to prevent issues with entities
