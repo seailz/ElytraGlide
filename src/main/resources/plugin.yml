@@ -3,4 +3,5 @@ version: '1.0.0'
 main: com.seailz.flaps.FlapsPlugin
 author: seailz
 depend: [ ProtocolLib ]
+load: STARTUP
 api-version: '1.21'

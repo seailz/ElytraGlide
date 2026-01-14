@@ -15,6 +15,13 @@ public class FlapsPlugin extends JavaPlugin {
 
     private static final String VERSION = "1.0.0";
 
+
+    @Override
+    public void onLoad() {
+        Flaps flp = new Flaps(this,  ProtocolLibrary.getProtocolManager(), true);
+        flp.start();
+    }
+
     @Override
     public void onEnable() {
         super.onEnable();
@@ -44,9 +51,6 @@ public class FlapsPlugin extends JavaPlugin {
                         return 1;
                     }).build());
         });
-
-        Flaps flp = new Flaps(this,  ProtocolLibrary.getProtocolManager(), true);
-        flp.start();
     }
 
     @Override
