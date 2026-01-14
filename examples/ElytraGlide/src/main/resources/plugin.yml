@@ -1,0 +1,5 @@
+name: ElytraGlide
+version: '1.0'
+main: com.seailz.elytraglide.ElytraGlide
+api-version: '1.21'
+depend: [ Flaps, ProtocolLib ]
