@@ -28,7 +28,7 @@ Potential use cases include:
 
 ## Overview
 The plugin works by sending packets to clients to modify the `GameTime` property, which is then read by custom shaders in a resource pack. The current iteration sets an agreed upon time value (12000 ticks), which is 
-then quantized as the client keeps progressing GameTime unless reset by the server and not doing so would cause drift for a few seconds. We are then left with +/- 1200 possible states. Unfortunately this is the current limiation and no more data can be embedded. It *may* be possible to extend this by removing quantization and instead sending packets every tick, at an increased bandwidth and risk of losing sync with the server. 
+then quantized as the client keeps progressing GameTime unless reset by the server and not doing so would cause drift for a few seconds. We are then left with +/- 1200 possible states per tick (shaders are stateless). Unfortunately this is the current limitation and no more data can be embedded. It *may* be possible to extend this by removing quantization and instead sending packets every tick, at an increased bandwidth and risk of losing sync with the server. 
 
 Flaps is currently configured and the resource pack is currently only designed for Java Edition 1.21.8. As core shaders are subject to change, it may not work on other versions without modification.
 
@@ -55,6 +55,7 @@ There are two types of shaders: vertex shaders (`.vsh`) and fragment shaders (`.
 ## Known issues
 The complexity of modifying core shaders and the fact that it's unsupported means you **will** encounter visual bugs. Some known issues include:
 - Celestial bodies are not controlled by the shader
+- The day/night cycle is currently disabled
 - Riding a boat can look weird
 - Holding an item in F5 view can look weird
 - Shaders cannot change the lower half of the sky. There is no solution to this. (notice how the snow particles are not visible within the blue area.)
