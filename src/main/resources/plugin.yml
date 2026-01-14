@@ -1,6 +1,6 @@
-name: ElytraGlide
-version: '1.0-SNAPSHOT'
-main: com.seailz.elytraGlide.ElytraGlide
+name: Flaps
+version: '1.0.0'
+main: com.seailz.flaps.FlapsPlugin
 author: seailz
 depend: [ ProtocolLib ]
 api-version: '1.21'
