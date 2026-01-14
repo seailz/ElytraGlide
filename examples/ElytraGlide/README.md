@@ -5,4 +5,8 @@ See [this video](https://www.youtube.com/watch?v=4TVhD3RRQrc) for reference.
 
 This is the plugin only; you will also need the Flaps resource pack for this to work. Here's what it looks like in action:
 
+
+https://github.com/user-attachments/assets/0d0d9f63-1c1d-4267-a8c0-44cce7879b1e
+
+
 There is some stuttering which is unfortunately unavoidable due to the limitations of creating smooth transitions with shaders (since they're stateless).
