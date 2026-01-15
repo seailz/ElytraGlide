@@ -11,6 +11,46 @@
 
 
 // -----------------------------------------------------------------------------
+// Bus decoding
+// -----------------------------------------------------------------------------
+
+const float EG_DAY_TICKS  = 24000.0;
+const float EG_MASK_BASE  = 256.0; // mask stored in higher place value (large gap to avoid drift)
+const float EG_ARG0_MAX   = 92.0;  // 0..92
+const float EG_ARG0_QUANT = 1.0;   // snap to nearest tick
+
+struct EgBus {
+    int mask;      // bitset
+    float arg0;    // 0..1 normalized
+    float day01;   // original gameTime01
+};
+
+EgBus eg_decode_bus(float gameTime01) {
+    float payload  = clamp(floor(gameTime01 * EG_DAY_TICKS), 0.0, EG_DAY_TICKS - 1.0);
+    payload = floor(payload * 0.5) * 2.0;
+
+    float maskf = floor(payload / EG_MASK_BASE);
+    float arg0i = payload - maskf * EG_MASK_BASE;
+
+    arg0i = floor((arg0i / EG_ARG0_QUANT) + 0.5) * EG_ARG0_QUANT;
+    arg0i = clamp(arg0i, 0.0, EG_ARG0_MAX);
+
+    EgBus b;
+    b.mask = int(maskf + 0.5);
+    b.arg0 = clamp(arg0i / EG_ARG0_MAX, 0.0, 1.0);
+    b.day01 = gameTime01;
+    return b;
+}
+
+bool eg_has(EgBus b, int bitIndex) {
+    return ((b.mask >> bitIndex) & 1) != 0;
+}
+
+float eg_arg0_signed(EgBus b) {
+    return b.arg0 * 2.0 - 1.0;
+}
+
+// -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
 
@@ -355,9 +395,23 @@ vec4 cave_effect(vec4 color, float gameTime, vec2 screenUV, float viewDist) {
 // -----------------------------------------------------------------------------
 // Presets (public API)
 // -----------------------------------------------------------------------------
-// Currently set to WINTER.
+// Uses the shared bus encoding; see the FlapsEffect bit assignments.
 vec4 eg_apply_fragment_effects(vec4 color, float gameTime, vec2 screenUV, float viewDist) {
-    return winter_effect(color, gameTime, screenUV, viewDist);
+    EgBus b = eg_decode_bus(gameTime);
+
+    const int EG_EFF_WINTER = 3;
+    const int EG_EFF_HOT    = 4;
+
+    vec4 outColor = color;
+
+    if (eg_has(b, EG_EFF_WINTER)) {
+        outColor = winter_effect(outColor, b.day01, screenUV, viewDist);
+    }
+    if (eg_has(b, EG_EFF_HOT)) {
+        outColor = hot_desert_effect(outColor, b.day01, screenUV, viewDist);
+    }
+
+    return outColor;
 }
 
 #endif

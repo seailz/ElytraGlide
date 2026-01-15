@@ -11,13 +11,16 @@ import java.util.function.BiFunction;
  * {@link FlapsCodec#MAX_MASK}, so high bits (≥7) or combining too many
  * bits will overflow the codec.
  *
- * <p>There are three default effects provided: ROLL, SHAKE, and HEAT_DISTORTION. If you override these in the shader, then you can use the bits 0-3 for your own effects. With the current codec, there is a limitation of 7 effects total. You may also override the codec and use your own
+ * <p>There are five default effects provided: ROLL, SHAKE, HEAT_DISTORTION
+ * (vertex), and the fragment presets WINTER and DESERT_HEAT. If you override these in the shader, then you can reuse bits 0-4 for your own effects. With the current codec, there is a limitation of 7 effects total. You may also override the codec and use your own
  * packing scheme if you wish. See {@link Flaps#setCustomTimeProvider(BiFunction)} for more details.
  */
 public final class FlapsEffect {
     public static final FlapsEffect ROLL = new FlapsEffect("ROLL", 0);
     public static final FlapsEffect SHAKE = new FlapsEffect("SHAKE", 1);
     public static final FlapsEffect HEAT_DISTORTION = new FlapsEffect("HEAT_DISTORTION", 2);
+    public static final FlapsEffect WINTER = new FlapsEffect("WINTER", 3);
+    public static final FlapsEffect DESERT_HEAT = new FlapsEffect("DESERT_HEAT", 4);
 
     private final String id;
     private final int bit;
