@@ -1,7 +1,9 @@
 name: Flaps
+description: Facilitates server control of client shaders as a library for plugins
 version: '1.0.0'
 main: com.seailz.flaps.FlapsPlugin
 author: seailz
 depend: [ ProtocolLib ]
 load: STARTUP
 api-version: '1.21'
+website: slz.lol
