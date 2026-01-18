@@ -41,19 +41,6 @@ public final class ElytraGlide extends JavaPlugin {
 
         // Drive roll based on yaw rate during elytra flight
         Bukkit.getScheduler().runTaskTimer(this, this::updateRollFromYaw, 1L, 1L);
-
-        // Register /shake
-        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-            commands.registrar().register(
-                    Commands.literal("shake").executes(ctx -> {
-                        Player player = (Player) ctx.getSource().getSender();
-                        bus.clear(player);
-                        bus.player(player)
-                                .enable(FlapsEffect.SHAKE)
-                                .commit();
-                        return 1;
-                    }).build());
-        });
     }
 
     @Override
