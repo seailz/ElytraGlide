@@ -1,5 +1,8 @@
 name: ElytraGlide
+description: Recreates the camera roll effect from the legacy console editions
 version: '1.0'
 main: com.seailz.elytraglide.ElytraGlide
 api-version: '1.21'
+author: seailz
 depend: [ Flaps, ProtocolLib ]
+website: slz.lol
