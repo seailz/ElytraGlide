@@ -18,13 +18,14 @@ public class FlapsPlugin extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        Flaps flp = new Flaps(this,  ProtocolLibrary.getProtocolManager(), true);
-        flp.start();
     }
 
     @Override
     public void onEnable() {
         super.onEnable();
+
+        Flaps flp = new Flaps(this,  ProtocolLibrary.getProtocolManager(), true);
+        flp.start();
 
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(
